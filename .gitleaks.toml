@@ -1,0 +1,39 @@
+# Gitleaks configuration for the Lyra monorepo (web/ + studio/).
+# Picked up automatically from the repo root by `gitleaks git .` and `gitleaks dir .`,
+# by the pre-commit hook in .githooks/ and by .github/workflows/gitleaks.yml.
+#
+# Docs: https://github.com/gitleaks/gitleaks#configuration
+
+title = "Lyra gitleaks config"
+
+# The [[allowlists]] syntax below needs gitleaks v8.25.0 or newer.
+minVersion = "v8.25.0"
+
+# Keep every built-in rule; the entries below only add to them.
+[extend]
+useDefault = true
+
+# Sanity API tokens ("sk" + ~180 base62 chars). The built-in generic-api-key
+# rule only catches them next to a keyword such as "token"; this catches them
+# anywhere (e.g. pasted into a client config under another name).
+[[rules]]
+id = "sanity-api-token"
+description = "Sanity API token"
+regex = '''\b(sk[A-Za-z0-9]{150,250})\b'''
+secretGroup = 1
+entropy = 4.5
+keywords = ["sk"]
+tags = ["sanity", "token"]
+
+# Dependencies and Next.js build output. Without this, `gitleaks dir .` reports
+# Next.js's own per-build keys under web/.next/ (previewModeSigningKey,
+# previewModeEncryptionKey, Server Action encryptionKey).
+# Note: global allowlists apply in EVERY mode (dir, git, pre-commit hook, CI), so
+# these paths are also exempt there. Keep the list to folders that are never
+# committed; do not add .vercel/ (`vercel pull` writes real secrets there).
+[[allowlists]]
+description = "Dependencies and Next.js build output (gitignored)"
+paths = [
+  '''(^|[\\/])node_modules([\\/]|$)''',
+  '''(^|[\\/])\.next([\\/]|$)''',
+]
