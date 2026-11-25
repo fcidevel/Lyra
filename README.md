@@ -36,13 +36,20 @@ no code changes needed to publish new content.
 - **CMS**: Sanity Studio v6 with GROQ queries
 - **Validation**: Zod runtime schemas guard every piece of CMS content before
   it renders
-- **Security**: Content Security Policy with per-request nonces
+- **Security**: Content Security Policy with per-request nonces, and mandatory
+  [secret scanning](#secret-scanning-mandatory) with gitleaks on every commit,
+  push, and pull request
 - **Quality**: ESLint, strict TypeScript, unused-code audits
 
 ## Running locally
 
 Each package installs and runs independently. Both need a `.env.local` created
 from their `.env.example` template, pointing at your own Sanity project.
+
+You also need [gitleaks](https://github.com/gitleaks/gitleaks) installed
+(`winget install Gitleaks.Gitleaks` or `brew install gitleaks`). Once the git
+hooks are enabled (`npm install` does it), commits and pushes are blocked
+without it - see [Secret scanning](#secret-scanning-mandatory).
 
 ```bash
 # Content studio
@@ -58,6 +65,33 @@ npm run dev          # http://localhost:3000
 
 The website renders once the studio's core content (site settings, header,
 footer, and a home page) has been created and published.
+
+## Secret scanning (mandatory)
+
+Every change is checked for leaked credentials with
+[gitleaks](https://github.com/gitleaks/gitleaks). The checks are required, not
+optional:
+
+| Where | What runs | What it blocks |
+| --- | --- | --- |
+| `git commit` | `.githooks/pre-commit` - scans the staged changes | the commit |
+| `git push` | `.githooks/pre-push` - scans every commit being pushed | the push |
+| GitHub | `Secret scan` workflow - scans the full history on every push and pull request | merging into `main` |
+
+- **Setup:** `npm install` in `web/` or `studio/` enables the hooks
+  automatically by setting `git config core.hooksPath .githooks`. Run that
+  command yourself if you haven't installed dependencies yet.
+- **Credentials** live only in each package's `.env.local`, which is gitignored.
+  `.env.example` lists variable names with empty values.
+- **Never bypass** the hooks with `--no-verify`, and never force-add ignored
+  files.
+- **False positives:** after review, mark the line with a `gitleaks:allow`
+  comment or add the finding's fingerprint to `.gitleaksignore`.
+- **Leaked secrets:** if a secret ever reaches GitHub, treat it as compromised.
+  Rotate it first, then clean the history.
+
+Rules are configured in [`.gitleaks.toml`](.gitleaks.toml): gitleaks' built-in
+rules plus a Sanity API token rule.
 
 ---
 

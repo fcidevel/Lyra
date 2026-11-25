@@ -45,10 +45,12 @@ The content itself is managed in the sibling [`../studio`](../studio) package.
 
 ## Getting started
 
-Requires Node.js 20+.
+Requires Node.js 20+ and [gitleaks](https://github.com/gitleaks/gitleaks), the
+repo's mandatory secret scanner (see
+[Secret scanning](../README.md#secret-scanning-mandatory)).
 
 ```bash
-npm install
+npm install                  # also enables the repo's secret-scanning git hooks
 cp .env.example .env.local   # fill in your own Sanity project values
 npm run dev                  # http://localhost:3000
 ```
@@ -74,6 +76,9 @@ All configuration lives in environment variables - see
 project identifiers are stored in the source code. Optional server-side
 features (draft preview, webhook revalidation, form relay) each disable
 themselves cleanly when their variable is unset.
+
+Real values belong only in `.env.local`, which is gitignored. Every commit and
+push is scanned by gitleaks and blocked if it contains a secret.
 
 ## License
 

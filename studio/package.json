@@ -14,7 +14,8 @@
     "dev": "sanity dev",
     "lint": "eslint .",
     "start": "sanity start",
-    "typegen": "sanity schemas extract --force && sanity typegen generate"
+    "typegen": "sanity schemas extract --force && sanity typegen generate",
+    "prepare": "git config core.hooksPath .githooks || exit 0"
   },
   "keywords": [
     "sanity"

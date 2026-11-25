@@ -1,6 +1,7 @@
 # Gitleaks configuration for the Lyra monorepo (web/ + studio/).
 # Picked up automatically from the repo root by `gitleaks git .` and `gitleaks dir .`,
-# by the pre-commit hook in .githooks/ and by .github/workflows/gitleaks.yml.
+# by the pre-commit and pre-push hooks in .githooks/ and by
+# .github/workflows/gitleaks.yml. Secret scanning is mandatory - see AGENTS.md / README.md.
 #
 # Docs: https://github.com/gitleaks/gitleaks#configuration
 

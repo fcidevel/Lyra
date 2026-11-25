@@ -1,8 +1,9 @@
 name: gitleaks
 
+# Mandatory secret scan. The job name "Secret scan" is the required status check
+# in the repository ruleset - do not rename it without updating the ruleset.
 on:
-  push:
-    branches: [main, devel]
+  push:          # every branch and tag
   pull_request:
   workflow_dispatch:
 

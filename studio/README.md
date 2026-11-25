@@ -33,10 +33,12 @@ seconds of publishing.
 
 ## Getting started
 
-Requires Node.js 22.12+.
+Requires Node.js 22.12+ and [gitleaks](https://github.com/gitleaks/gitleaks),
+the repo's mandatory secret scanner (see
+[Secret scanning](../README.md#secret-scanning-mandatory)).
 
 ```bash
-npm install
+npm install                  # also enables the repo's secret-scanning git hooks
 cp .env.example .env.local   # fill in your own Sanity project values
 npm run dev                  # http://localhost:3333
 ```
@@ -56,6 +58,9 @@ npm run dev                  # http://localhost:3333
 The Studio is configured entirely through environment variables - see
 [`.env.example`](.env.example). No project identifiers or credentials are
 stored in the source code.
+
+Real values belong only in `.env.local`, which is gitignored. Every commit and
+push is scanned by gitleaks and blocked if it contains a secret.
 
 ## License
 
