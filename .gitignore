@@ -48,7 +48,6 @@ next-env.d.ts
 docs/
 .agents/
 .claude/
-.cursor/
 .aider*
 .playwright-mcp/
 .mcp.json
@@ -57,8 +56,6 @@ skills-lock.json
 # Agent instruction files (regenerated locally; not for the public repo)
 AGENTS.md
 CLAUDE.md
-GEMINI.md
-.cursorrules
 
 # AI-generated / design source files (kept from the original .gitignore)
 *.ai
