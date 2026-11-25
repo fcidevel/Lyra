@@ -31,41 +31,18 @@ seconds of publishing.
 - Plugins: media library, color input, code input, tables, and Vision for
   query exploration
 
-## Getting started
-
-Requires Node.js 22.12+ and [gitleaks](https://github.com/gitleaks/gitleaks),
-the repo's mandatory secret scanner (see
-[Secret scanning](../README.md#secret-scanning-mandatory)).
-
-```bash
-npm install                  # also enables the repo's secret-scanning git hooks
-cp .env.example .env.local   # fill in your own Sanity project values
-npm run dev                  # http://localhost:3333
-```
-
-### Scripts
-
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start the Studio locally |
-| `npm run build` | Build the static Studio bundle |
-| `npm run deploy` | Build and deploy the Studio |
-| `npm run lint` | Lint the codebase |
-| `npm run typegen` | Regenerate TypeScript types from the schema |
-
 ## Configuration
 
-The Studio is configured entirely through environment variables - see
-[`.env.example`](.env.example). No project identifiers or credentials are
-stored in the source code.
+All configuration is supplied outside the source code: no project identifiers
+or credentials are stored in it.
 
-Real values belong only in `.env.local`, which is gitignored. Every commit and
-push is scanned by gitleaks and blocked if it contains a secret.
+Every commit and push is scanned by gitleaks and blocked if it contains a
+secret - see [Secret scanning](../README.md#secret-scanning-mandatory).
 
 ## License
 
-This source code is published for reference and evaluation purposes only.
-
-> No permission is granted to use, copy, modify, merge, publish, distribute, sublicense, or sell copies of this software, in whole or in part.
+Source-available, not open source. The code is public so that prospective
+clients, partners and employers can review how FCI Devel builds software: you
+may read it, and clone and run it for that review, but you may not reuse it.
 
 See [LICENSE](LICENSE) for the full terms.

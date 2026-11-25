@@ -43,47 +43,20 @@ The content itself is managed in the sibling [`../studio`](../studio) package.
 | Images | `next/image` with Sanity's image pipeline (hotspots, blur placeholders) |
 | Quality | ESLint, strict TypeScript, Knip |
 
-## Getting started
-
-Requires Node.js 20+ and [gitleaks](https://github.com/gitleaks/gitleaks), the
-repo's mandatory secret scanner (see
-[Secret scanning](../README.md#secret-scanning-mandatory)).
-
-```bash
-npm install                  # also enables the repo's secret-scanning git hooks
-cp .env.example .env.local   # fill in your own Sanity project values
-npm run dev                  # http://localhost:3000
-```
-
-The site renders once the studio's core content - site settings, header,
-footer, and a published home page - exists in your Sanity dataset.
-
-### Scripts
-
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start the development server |
-| `npm run build` | Production build |
-| `npm start` | Serve the production build locally |
-| `npm run lint` | Lint the codebase |
-| `npm run type-check` | TypeScript check |
-| `npm run knip` | Unused dependency/export audit |
-
 ## Configuration
 
-All configuration lives in environment variables - see
-[`.env.example`](.env.example) for the full annotated list. No credentials or
-project identifiers are stored in the source code. Optional server-side
-features (draft preview, webhook revalidation, form relay) each disable
-themselves cleanly when their variable is unset.
+All configuration is supplied outside the source code: no credentials or
+project identifiers are stored in it. Optional server-side features (draft
+preview, webhook revalidation, form relay) stay unavailable until they are
+configured.
 
-Real values belong only in `.env.local`, which is gitignored. Every commit and
-push is scanned by gitleaks and blocked if it contains a secret.
+Every commit and push is scanned by gitleaks and blocked if it contains a
+secret - see [Secret scanning](../README.md#secret-scanning-mandatory).
 
 ## License
 
-This source code is published for reference and evaluation purposes only.
-
-> No permission is granted to use, copy, modify, merge, publish, distribute, sublicense, or sell copies of this software, in whole or in part.
+Source-available, not open source. The code is public so that prospective
+clients, partners and employers can review how FCI Devel builds software: you
+may read it, and clone and run it for that review, but you may not reuse it.
 
 See [LICENSE](LICENSE) for the full terms.
