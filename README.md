@@ -157,6 +157,13 @@ Every change is checked for leaked credentials with
 - **Consent-first analytics.** Google Tag Manager and HubSpot load only
   according to the visitor's cookie choices.
 
+### Runtime
+
+The website is pinned to the **Node.js 24.x** LTS line through the `engines`
+field in [`web/package.json`](web/package.json), matching the hosting setting.
+Development uses **v24.22.3** or later, which includes the
+[November 2026 Node.js security release](https://nodejs.org/en/blog/vulnerability/november-2026-security-releases).
+
 ### Repository protection
 
 Only the repository owner can change this repository. Two GitHub rulesets
