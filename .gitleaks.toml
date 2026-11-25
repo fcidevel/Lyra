@@ -1,7 +1,8 @@
 # Gitleaks configuration for the Lyra monorepo (web/ + studio/).
 # Picked up automatically from the repo root by `gitleaks git .` and `gitleaks dir .`,
 # by the pre-commit and pre-push hooks in .githooks/ and by
-# .github/workflows/gitleaks.yml. Secret scanning is mandatory - see AGENTS.md / README.md.
+# .github/workflows/gitleaks.yml. Secret scanning is mandatory - see the
+# "Secret scanning (mandatory)" section of README.md.
 #
 # Docs: https://github.com/gitleaks/gitleaks#configuration
 
@@ -26,15 +27,15 @@ entropy = 4.5
 keywords = ["sk"]
 tags = ["sanity", "token"]
 
-# Dependencies and Next.js build output. Without this, `gitleaks dir .` reports
-# Next.js's own per-build keys under web/.next/ (previewModeSigningKey,
-# previewModeEncryptionKey, Server Action encryptionKey).
+# Next.js build output. Without this, `gitleaks dir .` reports Next.js's own
+# per-build keys under web/.next/ (previewModeSigningKey, previewModeEncryptionKey,
+# Server Action encryptionKey). node_modules/ needs no entry: gitleaks' built-in
+# allowlist already skips it.
 # Note: global allowlists apply in EVERY mode (dir, git, pre-commit hook, CI), so
 # these paths are also exempt there. Keep the list to folders that are never
-# committed; do not add .vercel/ (`vercel pull` writes real secrets there).
+# committed; never add .env* or .vercel/ (`vercel pull` writes real secrets there).
 [[allowlists]]
-description = "Dependencies and Next.js build output (gitignored)"
+description = "Next.js build output (gitignored)"
 paths = [
-  '''(^|[\\/])node_modules([\\/]|$)''',
   '''(^|[\\/])\.next([\\/]|$)''',
 ]
