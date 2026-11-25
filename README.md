@@ -95,7 +95,11 @@ rules plus a Sanity API token rule.
 
 ---
 
-**Built by [JordacheWD](https://jordachewd.com)**
+## Author
+
+Built with ❤️ by [FCI Devel](https://fcidevel.com)
+
+---
 
 ## License
 
