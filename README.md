@@ -106,10 +106,10 @@ Lyra/
 │   ├── public/
 │   ├── proxy.ts              per-request Content Security Policy with nonces
 │   ├── next.config.mjs
+│   ├── build-check.sh        Vercel ignored-build-step script
 │   └── LICENSE
 ├── .gitattributes
 ├── .gitleaks.toml            gitleaks rules: built-in plus project-specific
-├── build-check.sh            Vercel ignored-build-step script
 ├── LICENSE
 └── README.md
 ```
